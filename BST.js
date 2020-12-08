@@ -38,6 +38,8 @@ function main() {
   console.log(isItBst(BST2));
   // console.log(isBST(BST))
   console.log(findThird(BST));
+  console.log(isBalanced(BST))
+  console.log(isSameBSTUtil(BST))
 }
 main();
 
@@ -225,3 +227,72 @@ function findThird (tree) {
   }
 }
 
+// 8. Balanced BST
+// Write an algorithm that checks if a BST is balanced(i.e., a tree where no
+//    2 leaves differ in distance from the root by more than 1).
+// function isBalanced(tree) {
+//   return getMinHeight(tree) >= getMaxHeight(tree) - 1;
+// }
+
+// or
+function isBalanced(tree) {
+  if (tree === null) {
+    return true;
+  }
+
+  if (
+      tree.left 
+      && (tree.left.left || tree.left.right) 
+      && !tree.right
+    ) {
+    return false;
+  }
+  if (
+      tree.right 
+      && (tree.right.left || tree.right.right) 
+      && !tree.left
+    ) {
+    return false;
+  }
+
+  let left = isBalanced(tree.left);
+  let right = isBalanced(tree.right);
+
+  return left && right;
+}
+
+
+//9.Are they the same BSTs?
+// You are given two arrays which represent two sequences;
+// of keys that are used to create two binary search trees.Write a program;
+// that will tell whether the two BSTs will be identical or not without;
+// actually constructing the tree.You may use another data structure such;
+// as an array or a linked list but don't construct the BST. What is the ;
+// time complexity of your algorithm ? E.g., 3, 5, 4, 6, 1, 0, 2 and;
+// 3, 1, 5, 2, 4, 6, 0 are two sequences of arrays but will create the exact;
+// same BSTs and your program should return true.
+
+
+function isSameBSTUtil (a, b, n, i1, i2, min, max) {
+  var j;
+  var k;
+  for (j = i1; j < n; j++) {
+    if (a[j] > min && a[j] < max)
+      break;
+  }
+  for (k = i2; k < n; k++) {
+    if (b[k] > min && b[k] < max)
+      break;
+  }
+  if (j === n && k === n)
+    return true;
+  if ((((j === n)) !== ((k === n))) || a[j] !== b[k])
+    return false;
+  return isSameBSTUtil(a, b, n, j + 1, k + 1, a[j], max) && isSameBSTUtil(a, b, n, j + 1, k + 1, min, a[j]);
+}
+// Driver code 
+function maint() {
+  var a = [8, 3, 6, 1, 4, 7, 10, 14, 13];
+  var b = [8, 10, 14, 3, 6, 4, 1, 7, 13];
+  var n = a.length;
+}
