@@ -31,14 +31,22 @@ function main() {
   BST2.insert('O');
   BST2.insert('N');
   console.log(BST2);
+
+  console.log(treeHeight(BST));
+  console.log(treeHeight(BST2));
+  console.log(isItBst(BST));
+  console.log(isItBst(BST2));
+
+  // console.log(isBST(BST))
+
 }
 main();
 
-// function s(t, d = 0) {
+// function sort(t, d = 0) {
 //   if (t) {
-//     s(t.left, d + 1);
+//     sort(t.left, d + 1);
 //     console.log(" ".repeat(d) + t.value);
-//     s(t.right, d + 1);
+//     sort(t.right, d + 1);
 //   }
 // }
 
@@ -48,8 +56,8 @@ main();
 // following program does.Show with an example the result of executing this;
 // program.What is the runtime of this algorithm ?
 
-    //This function recursively sums every element in a tree Runtime: O(n) as the 
-    //function is called for every node in the tree
+//This function recursively sums every element in a tree Runtime: O(n) as the 
+//function is called for every node in the tree
 
 
 function tree(t) {
@@ -64,6 +72,91 @@ function tree(t) {
 //5. Write an algorithm to find the height of a binary search tree.
 // What is the time complexity of your algorithm ?
 
+function treeHeight(tree) {
+  if (tree === null) {
+    return -1;
+  }
+  let left = treeHeight(tree.left);
+  let right = treeHeight(tree.right);
+
+  if (left > right) {
+    return left + 1;
+  }
+  else {
+    return right + 1;
+  }
+}
+// or option 2 
+function getSize(node = this.root) {
+  if (node === null) {
+    return -1;
+  }
+
+  let left = getSize(node.left);
+  let right = getSize(node.right);
+  if (left > right) {
+    return left + 1;
+  }
+  else {
+    return right + 1;
+  }
+}
 
 
 
+
+// const bst = new BinarySearchTree(); 
+
+// bst.add(9)
+// bst.add(2)
+// bst.add(3)
+// bst.add(4)
+
+
+// console.log(bst.findMinHeight())
+// console.log(bst.findMaxHeight())
+// console.log(bst.isBalanced())
+
+// console.log('inorder:' + bst.inOrder())
+// console.log('preorder:' + bst.preOrder())
+// console.log('postorder:' + bst.postOrder())
+
+//6. Is it a BST?
+// Write an algorithm to check whether an arbitrary binary tree;
+// is a binary search tree, assuming the tree does not contain duplicates.;
+// ensuring that every node's left hand child i sless than the parent node's value
+// and that every node's right hand child is greater than the parent
+// not sure on this solution:
+
+function isItBst(tree) {
+  if (tree === null) {
+    return false;
+  }
+  if (tree.left && tree.right.key > tree.key) {
+    return true;
+  }
+  let left = isItBst(tree.left);
+  let right = isItBst(tree.right);
+
+  return left && right;
+}
+
+
+//or group solution 
+// const isBST = (node, min = null, max = null) => {
+//   // base case
+//   if (!node) {
+//     return true;
+//   }
+//   if (max !== null && node.key >= max) {
+//     return false;
+//   }
+//   if (min !== null && node.key <= min) {
+//     return false;
+//   }
+//   const leftSide = isBST(node.left, min, node.key);
+
+//   const rightSide = isBST(node.right, node.value, max);
+
+//   return leftSide && rightSide;
+// };
