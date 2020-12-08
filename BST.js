@@ -36,9 +36,8 @@ function main() {
   console.log(treeHeight(BST2));
   console.log(isItBst(BST));
   console.log(isItBst(BST2));
-
   // console.log(isBST(BST))
-
+  console.log(findThird(BST));
 }
 main();
 
@@ -160,3 +159,69 @@ function isItBst(tree) {
 
 //   return leftSide && rightSide;
 // };
+
+
+
+// 7. 3rd largest node
+// Write an algorithm to find the 3rd largest node in a binary search tree.
+// will need to be a right hand number since largest 
+//  function thirdLargest(tree) {
+//  // traverse tree generate an ordered list
+//   let newTree = displayBST(tree); 
+//   let orderedTree = newTree.split('')
+
+//   return orderedTree[orderedTree.length - 3]
+// }
+
+// or
+
+// const thirdLargest = (BST) => {
+//   // if the tree is empty return null 
+//   // if BST === 0 return null 
+//   // create an array to hold values
+
+//   let results = [];
+//   //traverse
+//   const _traverse = (node) => {
+//     // base case to stop recursion when undefined
+//     if (node.left) {
+//       _traverse(node.left);
+//     }
+//     // push the value to the results array
+//     results.push(node.value);
+
+//     // same for right side 
+
+//     if (node.right) {
+//       _traverse(node.right);
+//     }
+
+//   };
+//   _traverse(BST);
+//   if (results.length < 3) {
+//     return 'the tree has less than 3 nodes ';
+//   }
+//   else {
+//     return results.sort((a, b) => b - a)[2];
+//   }
+// };
+
+
+// or 
+function findThird (tree) {
+  let currentNode = tree;
+  while (currentNode.right !== null) {
+    currentNode = currentNode.right;
+  }
+  let parent = currentNode.parent;
+  if (currentNode.left !== null || parent.left !== null)
+    return parent.key;
+  if (parent.left !== null) {
+    let newNode = parent.left;
+    while (newNode.right !== null) {
+      newNode = newNode.right;
+    }
+    return newNode.key;
+  }
+}
+
