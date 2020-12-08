@@ -42,25 +42,28 @@ main();
 //   }
 // }
 
-// function tree(t) {
-//   if (!t) {
-//     return 0;
-//   }
-//   return tree(t.left) +'' + t.value + '' tree(t.right);
-// }
-
-// console.log(tree('A'));
 
 // 4. What does this program do?
 // Without running this code in your code editor, explain what the;
 // following program does.Show with an example the result of executing this;
 // program.What is the runtime of this algorithm ?
 
+    //This function recursively sums every element in a tree Runtime: O(n) as the 
+    //function is called for every node in the tree
+
+
 function tree(t) {
+  //base?
   if (!t) {
     return 0;
   }
+  //recusive? 
   return tree(t.left) + t.value + tree(t.right);
 }
+
+//5. Write an algorithm to find the height of a binary search tree.
+// What is the time complexity of your algorithm ?
+
+
 
 
